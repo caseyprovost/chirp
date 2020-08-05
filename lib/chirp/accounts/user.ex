@@ -5,6 +5,8 @@ defmodule Chirp.Accounts.User do
   @derive {Inspect, except: [:password]}
   schema "users" do
     field :email, :string
+    field :username, :string
+    field :name, :string
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
@@ -22,9 +24,11 @@ defmodule Chirp.Accounts.User do
   """
   def registration_changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :username, :name])
     |> validate_email()
     |> validate_password()
+    |> validate_username()
+    |> validate_name()
   end
 
   defp validate_email(changeset) do
@@ -34,6 +38,18 @@ defmodule Chirp.Accounts.User do
     |> validate_length(:email, max: 160)
     |> unsafe_validate_unique(:email, Chirp.Repo)
     |> unique_constraint(:email)
+  end
+
+  defp validate_name(changeset) do
+    changeset
+    |> validate_required([:name])
+  end
+
+  defp validate_username(changeset) do
+    changeset
+    |> validate_required([:username])
+    |> unsafe_validate_unique(:username, Chirp.Repo)
+    |> unique_constraint(:username)
   end
 
   defp validate_password(changeset) do

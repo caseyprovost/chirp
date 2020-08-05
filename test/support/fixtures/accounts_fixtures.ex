@@ -5,6 +5,7 @@ defmodule Chirp.AccountsFixtures do
   """
 
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
+  def unique_username, do: "foobar#{System.unique_integer()}"
   def valid_user_password, do: "hello world!"
 
   def user_fixture(attrs \\ %{}) do
@@ -12,7 +13,9 @@ defmodule Chirp.AccountsFixtures do
       attrs
       |> Enum.into(%{
         email: unique_user_email(),
-        password: valid_user_password()
+        password: valid_user_password(),
+        name: "Tony Stark",
+        username: "ironman"
       })
       |> Chirp.Accounts.register_user()
 
