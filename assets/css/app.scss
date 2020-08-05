@@ -1,6 +1,21 @@
 /* This file is for your main application css. */
-@import "./phoenix.css";
 @import "../node_modules/nprogress/nprogress.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-900;
+}
+
+.teal-button-wrapper a {
+  @apply px-6 py-2 text-teal-100 bg-teal-600 rounded text-sm;
+
+  &:hover {
+    @apply bg-teal-500;
+  }
+}
 
 /* LiveView specific classes for your customizations */
 .phx-no-feedback.invalid-feedback,

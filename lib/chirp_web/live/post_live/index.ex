@@ -6,7 +6,13 @@ defmodule ChirpWeb.PostLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    if connected?(socket), do: Timeline.subscribe()
     {:ok, assign(socket, :posts, list_posts())}
+  end
+
+  @impl true
+  def handle_info() do
+
   end
 
   @impl true
