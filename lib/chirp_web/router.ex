@@ -18,7 +18,7 @@ defmodule ChirpWeb.Router do
   end
 
   scope "/", ChirpWeb do
-    pipe_through :browser
+    pipe_through [:browser, :require_authenticated_user]
 
     live "/", PageLive, :index
 
